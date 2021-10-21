@@ -1,4 +1,5 @@
 # python-challenge
+This is my firt Python experience done on 2019 iPad Pro. Wish me luck :)
 
 ## Business Model
 
