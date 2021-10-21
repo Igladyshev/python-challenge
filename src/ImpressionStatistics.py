@@ -1,4 +1,5 @@
-import datetime
+from datetime import datetime
+from datetime import date
 import random
 import json
 
@@ -11,8 +12,8 @@ class ImpressionStatistics():
   impressions = 0
   clicks = 0
   revenue = 0.00
-  period_start = datetime.datetime(1970, 1, 1)
-  period_end = datetime.datetime(2200, 1, 1)
+  period_start = date(1970, 1,1)
+  period_end = date(2022, 1, 1)
   
   def __init__ (self, app_id, country_code, period_start, period_end):
     self.app_id = app_id
@@ -64,10 +65,12 @@ def main():
     if random.randint(1,10) >= 7:
       clicks.append(ClickEvent(impression.id, random.randrange(0,2)))
     
-  print("Impressions {0}, clicks {1}".format(len(impressionEvents), len(clicks)))
+  fileImpressions = open("data/impressions-{0}.json".format(datetime.now().isoformat()), "a")
+
+  fileImpressions.write(json.dumps(impressionEvents, default = ImpressionEvent.to_dict))
   
-  #for impression in impressionEvents:
-  print(json.dumps(impressionEvents, default = ImpressionEvent.to_dict))
+  fileImpressions.flush()
+  fileImpressions.close()
 
   
   
