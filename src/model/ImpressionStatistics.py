@@ -2,6 +2,7 @@ from datetime import datetime
 from datetime import date
 import random
 import json
+from pathlib import path
 
 from ImpressionEvent import ImpressionEvent
 from ClickEvent import ClickEvent
@@ -64,8 +65,8 @@ def main():
   for impression in impressionEvents :
     if random.randint(1,10) >= 7:
       clicks.append(ClickEvent(impression.id, random.randrange(0,2)))
-    
-  fileImpressions = open("data/impressions-{0}.json".format(datetime.now().isoformat()), "a")
+  here = Path(__file__).parent
+  fileImpressions = open("{1}/impressions-{0}.json".format(datetime.now().format("%Y%m%dT%H%M%S%"), dataPath), "a")
 
   fileImpressions.write(json.dumps(impressionEvents, default = ImpressionEvent.to_dict))
   
