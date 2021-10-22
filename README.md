@@ -12,7 +12,7 @@ Requirements are in [Verve Group Engineering Challenge](https://gist.github.com/
     * ImpressionEvent.py 
     * ClickEvent.py 
     * ImpressionStatistics.py
-  * ImpressionAggregator.py: thre main application doing all the magic
+  * ImpressionAggregator.py: the main application doing all the magic
 * resources: different resource files
   * data: here I keep the test data
     * impressions-20211022T065924.json: impression test data JSON file. 
@@ -36,6 +36,27 @@ Files being named as the following:
 `"{1}/clicks-{0}.json".format(datetime.now().strftime(DATETIME_FORMAT), dataDir`,  
 where `DATETIME_FORMAT = "%Y%m%dT%H%M%S"`
 
+### Code to modify when test generating
+`
+  `
+  // You can change countries array
+  COUNTRIES = ["US", "CA", "MX", "UK", "FR", "UA", "GE", "CZ", "DA", "NO", "SE", "ES"]
+
+def main():
+  "The main function is to generate test data"
+  impressionEvents = []
+  // here you set the number of impressionEvents to be generated
+  for i in range(12345):
+    
+    impressionEvents.append(ImpressionEvent(id = None, app_id = random.randint(1, 9), country_code = COUNTRIES[random.randint(0, len(COUNTRIES) - 1)], advertiser_id = random.randint(5, 10)))
+    
+  clicks = []
+  for impression in impressionEvents :
+    // here we define how often click event happens related to impreassionEvents
+    if random.randint(1,10) >= 7:
+`
+
+`
 ## How to execute statistics Aggregator?
 Even easier!  
 1. Open src/ImoressionAggregator.py in your favorite Python IDE
