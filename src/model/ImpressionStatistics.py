@@ -13,8 +13,8 @@ class ImpressionStatistics():
   impressions = 0
   clicks = 0
   revenue = 0.00
-  period_start = date(1970, 1,1)
-  period_end = date(2022, 1, 1)
+  period_start = "1970-01-01"
+  period_end = "2022-01-01"
   
   def __init__ (self, app_id, country_code, period_start, period_end):
     self.app_id = app_id
@@ -44,8 +44,8 @@ class ImpressionStatistics():
    
   
   def addRevenue (statistics, revenue):
-    if isinstance(clicks, double):
-      statistics.revenue += revenue
+    #if isinstance(revenue, double):
+    statistics.revenue += revenue
     
     return statistics
     
@@ -55,10 +55,28 @@ class ImpressionStatistics():
       if click.revenue is not None:
         totalRevenue += click.revenue
     return totalRevenue 
+    
+  def to_dict (stats):
+    if isinstance(stats, ImpressionStatistics):
+      return {
+        "app_id": stats.app_id,
+        "country_code": stats.country_code,
+        "period_start": stats.period_start,
+        "period_end": stats.period_end,
+        "impressions": stats.impressions,
+        "clicks": stats.clicks,
+        "revenue": stats.revenue
+      }
+    else:
+      type_name = type(stats)
+      raise TypeError("Unexpected type {0}".format(type_name))    
+  
+DATETIME_FORMAT = "%Y%m%dT%H%M%S"
 
 def main():
+  "The main function is to generate test data"
   impressionEvents = []
-  for i in range(10000):
+  for i in range(123456):
     impressionEvents.append(ImpressionEvent(id = None, app_id = 1, country_code = "US", advertiser_id = random.randint(1234567890, 9876543210)))
     
   clicks = []
@@ -67,16 +85,20 @@ def main():
       clicks.append(ClickEvent(impression.id, random.randrange(0,2)))
   homeDir = Path(__file__).parents[2]
   dataDir = "{0}/{1}".format(homeDir, "resources/data")
-
-  print(dataDir)
   
-  
-  fileImpressions = open("{1}/impressions-{0}.json".format(datetime.now().strftime("%Y%m%dT%H%M%S%"), dataDir), "a")
+  fileImpressions = open("{1}/impressions-{0}.json".format(datetime.now().strftime(DATETIME_FORMAT), dataDir), "a")
 
   fileImpressions.write(json.dumps(impressionEvents, default = ImpressionEvent.to_dict))
   
   fileImpressions.flush()
   fileImpressions.close()
+
+  fileClicks = open("{1}/clicks-{0}.json".format(datetime.now().strftime(DATETIME_FORMAT), dataDir), "a")
+
+  fileClicks.write(json.dumps(clicks, default = ClickEvent.to_dict))
+  
+  fileClicks.flush()
+  fileClicks.close()
 
   
   
