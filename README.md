@@ -1,30 +1,72 @@
 # python-challenge
-This is my firt Python experience done on 2019 iPad Pro. Wish me luck :)
+This is my first Python experience done on 2019 iPad Pro. Wish me luck :)
 
-## Business Model
+## Requirements
 
-Advertisement banners are displayed to users in a mobile application (app_id) in a country (country code) from an advertiser (advertiser_id). When this happens, an impression event is recorded and stored. Optionally, if the user clicks on the banner, a click event is recorded.
+Requirements are in [Verve Group Engineering Challenge](https://gist.github.com/alexnastetsky/b02e292ae127450aa82781c83762a37d#business-model) gihub repo
 
-## Input
+## Project structure
 
-### Arguments
+* src: the source code folder
+  * model : the model objects
+    * ImpressionEvent.py 
+    * ClickEvent.py 
+    * ImpressionStatistics.py
+  * ImpressionAggregator.py: the main application doing all the magic
+* resources: different resource files
+  * data: here I keep the test data
+    * impressions-20211022T065924.json: impression test data JSON file. 
+    * impressions-...
+    * clicks- 20211022T065924.json: clicks test data JSON file
+    * clicks-...
 
-Appliction accepts 2 lists of file names with click and impression events.
+## How to generate Test Data?
+Short answer is: "Easy!":
+1. Clone the project to your local computer/ipad
+2. Open src/model/ImpressionStatistics.py in your favorite Python IDE
+3. modify the code bellow to your desire:
+4. execute *ImpressionStatistics.py*  
+  
+Generated files are stored into `dataDir` which is calculated as the following:  
+`
+homeDir = Path(__file__).parents[2] // this is being calculated within src/model/ImpressionStatistics.py
+dataDir = "{0}/resources/data".format(homeDir)
+`  
+Files being named as the following:  
+`"{1}/clicks-{0}.json".format(datetime.now().strftime(DATETIME_FORMAT), dataDir`,  
+where `DATETIME_FORMAT = "%Y%m%dT%H%M%S"`
 
-### Impression event schema
+### Code to modify when test generating
+```
+  // You can change countries array
+  COUNTRIES = ["US", "CA", "MX", "UK", "FR", "UA", "GE", "CZ", "DA", "NO", "SE", "ES"]
 
-* id (string): a UUID that identifies the impression.
-* create_datetime_utc (string): the event timestamp formatted using pattern: "YYYY-MM-dd'T'HH:mm:ss.SSSXXX", for example "2000-10-31T01:30:00.000-05:00"
-* app_id (integer): an identifier of the application showing the impression.
-* country_code (string): a 2-letter code for the country. It doesn't comply to any standard like ISO 3166.
-* advertiser_id (integer): an identifier of the advertiser that bought the impression.
-
-Example data can be found on impressions.json.
-
-### Click event schema
-
-* impression_id (string): a reference to the UUID of the impression where the click was produced.
-* create_datetime_utc: (string): the event timestamp formatted as ISO-8601: "YYYY-MM-dd'T'HH:mm:ss.SSSXXX"
-* revenue (double): the quantity of money paid by the advertiser when the click is tracked.
-
-Example data can be found on clicks.json.
+def main():
+  "The main function is to generate test data"
+  impressionEvents = []
+  // here you set the number of impressionEvents to be generated
+  for i in range(12345):
+    
+    impressionEvents.append(ImpressionEvent(id = None, app_id = random.randint(1, 9), country_code = COUNTRIES[random.randint(0, len(COUNTRIES) - 1)], advertiser_id = random.randint(5, 10)))
+    
+  clicks = []
+  for impression in impressionEvents :
+    // here we define how often click event happens related to impreassionEvents
+    if random.randint(1,10) >= 7:
+```
+## How to execute statistics Aggregator?
+Even easier!  
+1. Open src/ImoressionAggregator.py in your favorite Python IDE
+2. Run it
+3. Read output in console:  
+```
+{
+  "app_id": 1, 
+  "country_code": "US", 
+  "period_start": "2021-10-21", 
+  "period_end": "2021-10-22", 
+  "impressions": 155801,
+  "clicks": 62340, 
+  "revenue": 31013.0
+}
+```
