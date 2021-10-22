@@ -55,18 +55,4 @@ def main():
     if random.randint(1,10) >= 7:
 ```
 ## How to execute statistics Aggregator?
-Even easier!  
-1. Open src/ImoressionAggregator.py in your favorite Python IDE
-2. Run it
-3. Read output in console:  
-```
-{
-  "app_id": 1, 
-  "country_code": "US", 
-  "period_start": "2021-10-21", 
-  "period_end": "2021-10-22", 
-  "impressions": 155801,
-  "clicks": 62340, 
-  "revenue": 31013.0
-}
-```
+TBD: work in progress
