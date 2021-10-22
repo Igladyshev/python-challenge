@@ -59,7 +59,8 @@ Even easier!
 1. Open src/ImoressionAggregator.py in your favorite Python IDE
 2. Run it
 3. Read output in console:  
-`{
+```
+{
   "app_id": 1, 
   "country_code": "US", 
   "period_start": "2021-10-21", 
@@ -67,4 +68,5 @@ Even easier!
   "impressions": 155801,
   "clicks": 62340, 
   "revenue": 31013.0
-}`
+}
+```
