@@ -1,5 +1,5 @@
 # python-challenge
-This is my firt Python experience done on 2019 iPad Pro. Wish me luck :)
+This is my first Python experience done on 2019 iPad Pro. Wish me luck :)
 
 ## Requirements
 
