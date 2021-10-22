@@ -24,36 +24,23 @@ Requirements are in [Verve Group Engineering Challenge](https://gist.github.com/
 Short answer is: "Easy!":
 1. Clone the project to your local computer/ipad
 2. Open src/model/ImpressionStatistics.py in your favorite Python IDE
-3. modify the following code to your desire:
-  `
-  // You can change countries array
-  COUNTRIES = ["US", "CA", "MX", "UK", "FR", "UA", "GE", "CZ", "DA", "NO", "SE", "ES"]
-
-def main():
-  "The main function is to generate test data"
-  impressionEvents = []
-  // here you set the number of impressionEvents to be generated
-  for i in range(12345):
-    
-    impressionEvents.append(ImpressionEvent(id = None, app_id = random.randint(1, 9), country_code = COUNTRIES[random.randint(0, len(COUNTRIES) - 1)], advertiser_id = random.randint(5, 10)))
-    
-  clicks = []
-  for impression in impressionEvents :
-    // here we define how often click event happens related to impreassionEvents
-    if random.randint(1,10) >= 7:
+3. modify the code bellow to your desire:
+4. execute *ImpressionStatistics.py*  
+  
+Generated files are stored into `dataDir` which is calculated as the following:  
 `
-4. execute *ImpressionStatistics.py*: generated files are stored into `dataDir` which is calculated as the following:
-`
-  homeDir = Path(__file__).parents[2] // this is being calculated within src/model/ImpressionStatistics.py
-  dataDir = "{0}/resources/data".format(homeDir)
-`
-files being named as the following: `"{1}/clicks-{0}.json".format(datetime.now().strftime(DATETIME_FORMAT), dataDir`, where `DATETIME_FORMAT = "%Y%m%dT%H%M%S"`
+homeDir = Path(__file__).parents[2] // this is being calculated within src/model/ImpressionStatistics.py
+dataDir = "{0}/resources/data".format(homeDir)
+`  
+Files being named as the following:  
+`"{1}/clicks-{0}.json".format(datetime.now().strftime(DATETIME_FORMAT), dataDir`,  
+where `DATETIME_FORMAT = "%Y%m%dT%H%M%S"`
 
 ## How to execute statistics Aggregator?
-Even easier!
+Even easier!  
 1. Open src/ImoressionAggregator.py in your favorite Python IDE
 2. Run it
-3. Read output in console:
+3. Read output in console:  
 `{
   "app_id": 1, 
   "country_code": "US", 
