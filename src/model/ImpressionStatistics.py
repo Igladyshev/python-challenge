@@ -2,7 +2,7 @@ from datetime import datetime
 from datetime import date
 import random
 import json
-from pathlib import path
+from pathlib import Path
 
 from ImpressionEvent import ImpressionEvent
 from ClickEvent import ClickEvent
@@ -58,15 +58,20 @@ class ImpressionStatistics():
 
 def main():
   impressionEvents = []
-  for i in range(10):
+  for i in range(10000):
     impressionEvents.append(ImpressionEvent(id = None, app_id = 1, country_code = "US", advertiser_id = random.randint(1234567890, 9876543210)))
     
   clicks = []
   for impression in impressionEvents :
     if random.randint(1,10) >= 7:
       clicks.append(ClickEvent(impression.id, random.randrange(0,2)))
-  here = Path(__file__).parent
-  fileImpressions = open("{1}/impressions-{0}.json".format(datetime.now().format("%Y%m%dT%H%M%S%"), dataPath), "a")
+  homeDir = Path(__file__).parents[2]
+  dataDir = "{0}/{1}".format(homeDir, "resources/data")
+
+  print(dataDir)
+  
+  
+  fileImpressions = open("{1}/impressions-{0}.json".format(datetime.now().strftime("%Y%m%dT%H%M%S%"), dataDir), "a")
 
   fileImpressions.write(json.dumps(impressionEvents, default = ImpressionEvent.to_dict))
   
