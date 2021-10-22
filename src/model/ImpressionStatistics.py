@@ -10,17 +10,17 @@ from ClickEvent import ClickEvent
 class ImpressionStatistics():
   app_id = 1
   country_code = "US"
+  advertiser_id = 0
   impressions = 0
   clicks = 0
   revenue = 0.00
   period_start = "1970-01-01"
   period_end = "2022-01-01"
   
-  def __init__ (self, app_id, country_code, period_start, period_end):
+  def __init__ (self, app_id, country_code, advertiser_id):
     self.app_id = app_id
     self.country_code = country_code
-    self.period_start = period_start
-    self.period_end = period_end
+    self.advertiser_id = advertiser_id
     self.impressions = 0
     self.clicks = 0
     self.revenue = 0.00
@@ -61,8 +61,7 @@ class ImpressionStatistics():
       return {
         "app_id": stats.app_id,
         "country_code": stats.country_code,
-        "period_start": stats.period_start,
-        "period_end": stats.period_end,
+        "advertiser_id": stats.advertiser_id,
         "impressions": stats.impressions,
         "clicks": stats.clicks,
         "revenue": stats.revenue
@@ -72,16 +71,18 @@ class ImpressionStatistics():
       raise TypeError("Unexpected type {0}".format(type_name))    
   
 DATETIME_FORMAT = "%Y%m%dT%H%M%S"
+COUNTRIES = ["US", "IS", "UA"]
 
 def main():
   "The main function is to generate test data"
   impressionEvents = []
-  for i in range(123456):
-    impressionEvents.append(ImpressionEvent(id = None, app_id = 1, country_code = "US", advertiser_id = random.randint(1234567890, 9876543210)))
+  for i in range(12345):
+    
+    impressionEvents.append(ImpressionEvent(id = None, app_id = random.randint(1, 9), country_code = COUNTRIES[random.randint(0, len(COUNTRIES) - 1)], advertiser_id = random.randint(1,10)))
     
   clicks = []
   for impression in impressionEvents :
-    if random.randint(1,10) >= 7:
+    if random.randint(1,10) >=3:
       clicks.append(ClickEvent(impression.id, random.randrange(0,2)))
   homeDir = Path(__file__).parents[2]
   dataDir = "{0}/{1}".format(homeDir, "resources/data")
