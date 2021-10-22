@@ -37,8 +37,7 @@ Files being named as the following:
 where `DATETIME_FORMAT = "%Y%m%dT%H%M%S"`
 
 ### Code to modify when test generating
-`
-  `
+```
   // You can change countries array
   COUNTRIES = ["US", "CA", "MX", "UK", "FR", "UA", "GE", "CZ", "DA", "NO", "SE", "ES"]
 
@@ -54,9 +53,7 @@ def main():
   for impression in impressionEvents :
     // here we define how often click event happens related to impreassionEvents
     if random.randint(1,10) >= 7:
-`
-
-`
+```
 ## How to execute statistics Aggregator?
 Even easier!  
 1. Open src/ImoressionAggregator.py in your favorite Python IDE
