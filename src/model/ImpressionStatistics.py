@@ -15,8 +15,6 @@ class ImpressionStatistics():
 	impressions = 0
 	clicks = 0
 	revenue = 0.00
-	period_start = "1970-01-01"
-	period_end = "2022-01-01"
 
 	def __init__(self, app_id, country_code, advertiser_id):
 		self.app_id = app_id
@@ -73,7 +71,7 @@ COUNTRIES = ["US", "IS", "UA"]
 def main():
 	"The main function is to generate test data"
 	impressionEvents = []
-	for i in range(100):
+	for i in range(1000):
 
 		impressionEvents.append(
 			ImpressionEvent(

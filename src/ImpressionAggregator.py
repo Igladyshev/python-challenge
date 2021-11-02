@@ -51,6 +51,7 @@ def main():
         lambda s: pd.Series({
             "impressions": s["id"].count()
         })).sort_values(["country_code", "impressions"], ascending=False).reset_index(drop=False)
+
     print(impressions_adv_summary_df.groupby("country_code").head(5))
 
 
