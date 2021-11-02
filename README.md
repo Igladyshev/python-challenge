@@ -55,42 +55,25 @@ def main():
     if random.randint(1,10) >= 7:
 ```
 ## How to execute statistics Aggregator?
-I tried, but it is too much to absorb in a few days, so here is what I would do, if I knew Python. I try to explain it in language I most familiar with, SQL:
-
-		1. Add impressions (int, default 1) column to the impression_clicks_df
-		2. Add clics clumn as expression (0 if impression_clicks_df[impression_id] is None else 1)
-		3. build aggregated_df as the following (I would use SQL now)
-  ```
-			select 
-						app_id,
-						country_code,
-						sum(impressions) as total_imptressions,
-						sum(clicks) as total_clicks,
-						sum(case when revenue is null then 0 else revenue end) as total_revenue
-			from impression_clicks_df
-			group by app_id, country_code
-			order by app_id, country_code, total_revenue desc, total_clicks desc, total_impressions desc
-   ```
-		4. Build recommendation as the following:
-  ```
-			with app_country_stats as (
-				select 
-					app_id, 
-					country_code, 
-					count(*) as total_impressions,
-					sum(case when impression_id is null then 0 else 1 end) as total_clicks,
-					sum(case when impression_id is null then 0.00 else cast(revenue as decimal(18,2)) as total_revenue
-				from impression_clicks_df
-				group by app_id, country_code)
-			select 
-						app_id,
-						country_code,
-						(select advertiser_id, count(*) as total_impressions
-						 from impression_clicks_df as ic
-						 where ic.country_code = asc.country_code
-						 and ic.app_id = asc.app+id
-						 order by total_impressions desc
-						 limit 5) as recommended_advertiser_ids
-   from app_country_stats 
+Even easier!
+Just run the `Aggregator.py` and you will get something like this:
 ```
+   country_code  advertiser_id  impressions
+0            US            1.0          119
+1            US            2.0          109
+2            US            5.0          102
+3            US           10.0          101
+4            US            4.0          100
+10           UA           10.0          121
+11           UA            1.0          116
+12           UA            2.0          107
+13           UA            8.0          105
+14           UA            4.0           97
+20           IS            5.0          112
+21           IS            9.0          107
+22           IS            2.0          106
+23           IS            7.0          106
+24           IS            3.0           99
+```
+
 
